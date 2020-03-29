@@ -1,6 +1,5 @@
 import yaml
 
-from kubernetes import client
 from kubernetes.client import V1Secret
 from kubernetes.client.rest import ApiException
 
