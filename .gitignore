@@ -1,5 +1,6 @@
+.vscode/
 configs/
-kubeapi/ca_chain.crt
-kubeapi/create_service.py
-kubeapi/kube_conf.py
-kubeapi/test.py
+simplekube/ca_chain.crt
+simplekube/create_service.py
+simplekube/kube_conf.py
+simplekube/test.py

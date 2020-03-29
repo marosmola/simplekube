@@ -5,10 +5,10 @@ from kubernetes import client
 from kubernetes.client import V1Deployment
 from kubernetes.client.rest import ApiException
 
-from .mixins import JinjaTemplateMixin
+from mixins import JinjaTemplateMixin
 
 
-class MyV1Deployment(V1Deployment, JinjaTemplateMixin):
+class SimpleV1Deployment(V1Deployment, JinjaTemplateMixin):
 
     def __init__(self, api, name, app, image, version, port, configmap=None, args=[], secret=None, replicas=1, namespace='default'):
         self.api = api
