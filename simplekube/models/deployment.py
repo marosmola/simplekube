@@ -5,7 +5,7 @@ from kubernetes import client
 from kubernetes.client import V1Deployment
 from kubernetes.client.rest import ApiException
 
-from mixins import JinjaTemplateMixin
+from simplekube.mixins import JinjaTemplateMixin
 
 
 class SimpleV1Deployment(V1Deployment, JinjaTemplateMixin):

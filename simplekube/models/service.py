@@ -3,7 +3,7 @@ import yaml
 from kubernetes.client import V1Service
 from kubernetes.client.rest import ApiException
 
-from mixins import JinjaTemplateMixin
+from simplekube.mixins import JinjaTemplateMixin
 
 
 class SimpleV1Service(V1Service, JinjaTemplateMixin):

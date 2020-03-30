@@ -1,18 +1,22 @@
-import setuptools
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name="simplekube",
-    version="0.0.1",
+    version="0.0.4",
     author="marosmola",
     author_email="ssmolenm@gmail.com",
     description="Simplify kubernetes-client library",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/marosmola/simple-kube",
-    packages=setuptools.find_packages(),
+    url="https://github.com/marosmola/simplekube",
+    packages=find_packages(),
+    install_requires=[
+        "Jinja2==2.11.1",
+        "kubernetes==11.0.0"
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

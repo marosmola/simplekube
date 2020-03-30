@@ -11,7 +11,5 @@ class JinjaTemplateMixin(object):
                 os.path.dirname(
                     os.path.realpath(__file__))),
             'templates')
-        print(dir_path)
-        env = Environment(loader=FileSystemLoader(
-            '/home/maro/Projects/django-devops/simplekube/templates/'))
+        env = Environment(loader=FileSystemLoader(dir_path))
         return env.get_template(template).render(object=context)
