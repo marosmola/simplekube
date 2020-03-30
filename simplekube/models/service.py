@@ -21,8 +21,8 @@ class SimpleV1Service(V1Service, JinjaTemplateMixin):
             'port': port
         }
 
-        config = yaml.safe_load(self.generate_template('configmap.yaml.j2', context))
-        V1Service.__init__(api_version=config['apiVersion'], kind=config['kind'], metadata=config['metadata'], spec=config['spec'], status=None)
+        config = yaml.safe_load(self.generate_template('service.yaml.j2', context))
+        V1Service.__init__(self, api_version=config['apiVersion'], kind=config['kind'], metadata=config['metadata'], spec=config['spec'], status=None)
 
     @property
     def app(self):
