@@ -2,7 +2,7 @@ from kubernetes import client
 from kubernetes.client.rest import ApiException
 
 
-class MyV1Namespace(client.V1Namespace):
+class SimpleV1Namespace(client.V1Namespace):
 
     def __init__(self, api, name):
         self.api = api

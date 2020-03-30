@@ -1,41 +1,28 @@
-from kubernetes import client
+import yaml
+
+from kubernetes.client import V1Service
 from kubernetes.client.rest import ApiException
 
+from simplekube.mixins import JinjaTemplateMixin
 
-class MyV1Service(client.V1Service):
+
+class SimpleV1Service(V1Service, JinjaTemplateMixin):
 
     def __init__(self, api, name, app, port, namespace='default'):
-        """
-        Docs to be added
-        """
         self.api = api
         self.name = name
         self.namespace = namespace
-
         self._app = app
         self._port = port
 
-        metadata = {
-            "labels": {
-                "app": app
-            },
-            "name": name
+        context = {
+            'name': name,
+            'app': app,
+            'port': port
         }
 
-        spec = {
-            "ports": [
-                {
-                    "name": "api",
-                    "port": 80,
-                    "protocol": "TCP",
-                    "targetPort": port
-                }
-            ],
-            "selector": {
-                "app": app
-            }
-        }
-        super().__init__(api_version='v1', kind='Service', metadata=metadata, spec=spec, status=None)
+        config = yaml.safe_load(self.generate_template('configmap.yaml.j2', context))
+        V1Service.__init__(api_version=config['apiVersion'], kind=config['kind'], metadata=config['metadata'], spec=config['spec'], status=None)
 
     @property
     def app(self):

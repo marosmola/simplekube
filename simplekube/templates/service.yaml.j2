@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ object.app }}
+  name: {{ object.name }}
+spec:
+  ports:
+  - name: api
+    port: 80
+    protocol: TCP
+    targetPort: {{ object.port }}
+  selector:
+    app: {{ object.app }}
