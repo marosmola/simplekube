@@ -1,5 +1,6 @@
 import yaml
 
+from kubernetes import client
 from kubernetes.client import NetworkingV1beta1Ingress
 from kubernetes.client.rest import ApiException
 
@@ -9,8 +10,8 @@ from simplekube.exceptions import SimpleApiException
 
 class SimpleV1Ingress(NetworkingV1beta1Ingress, JinjaTemplateMixin):
 
-    def __init__(self, api, name, issuer, host, paths=[], namespace='default'):
-        self.api = api
+    def __init__(self, api_client, name, issuer, host, paths=[], namespace='default'):
+        self.api = client.NetworkingV1beta1Api(api_client)
         self.name = name
         self.namespace = namespace
 
@@ -27,7 +28,6 @@ class SimpleV1Ingress(NetworkingV1beta1Ingress, JinjaTemplateMixin):
 
         config = yaml.safe_load(self.generate_template('ingress.yaml.j2', context))
         NetworkingV1beta1Ingress.__init__(self, api_version=config['apiVersion'], kind=config['kind'], metadata=config['metadata'], spec=config['spec'], status=None)
-
 
     @property
     def host(self):

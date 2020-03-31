@@ -3,10 +3,11 @@ from kubernetes.client.rest import ApiException
 
 from simplekube.exceptions import SimpleApiException
 
+
 class SimpleV1Namespace(client.V1Namespace):
 
-    def __init__(self, api, name):
-        self.api = api
+    def __init__(self, api_client, name):
+        self.api = client.CoreV1Api(api_client)
         self.name = name
         metadata = {
             'name': name

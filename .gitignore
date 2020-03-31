@@ -25,7 +25,5 @@ share/python-wheels/
 MANIFEST
 
 .vscode/
-ca_chain.crt
-create_service.py
-create_test.py
+tests/
 token.txt
