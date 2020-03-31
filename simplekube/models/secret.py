@@ -1,5 +1,6 @@
 import yaml
 
+from kubernetes import client
 from kubernetes.client import V1Secret
 from kubernetes.client.rest import ApiException
 
@@ -9,8 +10,8 @@ from simplekube.exceptions import SimpleApiException
 
 class SimpleV1Secret(V1Secret, JinjaTemplateMixin):
 
-    def __init__(self, api, name, secret_type, variables=[], namespace='default'):
-        self.api = api
+    def __init__(self, api_client, name, secret_type, variables=[], namespace='default'):
+        self.api = client.CoreV1Api(api_client)
         self.name = name
         self.namespace = namespace
 

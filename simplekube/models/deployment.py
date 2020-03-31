@@ -1,5 +1,4 @@
 import yaml
-from pprint import pprint
 
 from kubernetes import client
 from kubernetes.client import V1Deployment
@@ -11,8 +10,8 @@ from simplekube.exceptions import SimpleApiException
 
 class SimpleV1Deployment(V1Deployment, JinjaTemplateMixin):
 
-    def __init__(self, api, name, app, image, version, port, configmap=None, args=[], secret=None, replicas=1, namespace='default'):
-        self.api = api
+    def __init__(self, api_client, name, app, image, version, port, configmap=None, args=[], secret=None, replicas=1, namespace='default'):
+        self.api = client.AppsV1Api(api_client)
         self.name = name
         self.namespace = namespace
 
