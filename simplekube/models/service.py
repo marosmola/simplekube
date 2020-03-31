@@ -4,6 +4,7 @@ from kubernetes.client import V1Service
 from kubernetes.client.rest import ApiException
 
 from simplekube.mixins import JinjaTemplateMixin
+from simplekube.exceptions import SimpleApiException
 
 
 class SimpleV1Service(V1Service, JinjaTemplateMixin):
@@ -45,29 +46,24 @@ class SimpleV1Service(V1Service, JinjaTemplateMixin):
 
     def create(self, pretty=False):
         try:
-            api_response = self.api.create_namespaced_service(self.namespace, self.to_dict(), pretty=pretty)
-            print(api_response)
+            return self.api.create_namespaced_service(self.namespace, self.to_dict(), pretty=pretty)
         except ApiException as e:
-            print("Exception when calling CoreV1Api->create_namespaced_service: %s\n" % e)
+            raise SimpleApiException(e)
 
     def delete(self, pretty=False, grace_period_seconds=0, propagation_policy='Foreground'):
         try:
-            api_response = self.api.delete_namespaced_service(self.name, self.namespace, grace_period_seconds=grace_period_seconds, propagation_policy=propagation_policy, pretty=pretty)
-            print(api_response)
+            return self.api.delete_namespaced_service(self.name, self.namespace, grace_period_seconds=grace_period_seconds, propagation_policy=propagation_policy, pretty=pretty)
         except ApiException as e:
-            print("Exception when calling CoreV1Api->delete_namespaced_service: %s\n" % e)
+            raise SimpleApiException(e)
 
     def read(self, pretty=False):
         try:
-            api_response = self.api.read_namespaced_service(self.name, self.namespace, pretty=pretty)
-            print(api_response)
+            return self.api.read_namespaced_service(self.name, self.namespace, pretty=pretty)
         except ApiException as e:
-            print("Exception when calling CoreV1Api->read_namespaced_service: %s\n" % e)
+            raise SimpleApiException(e)
 
     def patch(self, force=False, pretty=False):
-        # TODO: force: Forbidden: may not be specified for non-apply patch
         try:
-            api_response = self.api.patch_namespaced_service(self.name, self.namespace, self.to_dict(), pretty=pretty)
-            print(api_response)
+            return self.api.patch_namespaced_service(self.name, self.namespace, self.to_dict(), pretty=pretty)
         except ApiException as e:
-            print("Exception when calling CoreV1Api->patch_namespaced_service: %s\n" % e)
+            raise SimpleApiException(e)

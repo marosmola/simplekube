@@ -18,7 +18,15 @@ class SimpleApiException(Exception):
     def __str__(self):
         body = self.format_body()
         if body:
-            error_message = "{}:{}".format(body['reason'], body['message'])
+            error_message = {
+                'status_code': self.status,
+                'reason': body['reason'],
+                'message': body['message'],
+            }
         else:
-            error_message = "{}:{}".format(self.status, self.reason)
-        return error_message
+            error_message = {
+                'status_code': self.status,
+                'reason': self.reason,
+                'message': "",
+            }
+        return str(error_message)
