@@ -4,6 +4,7 @@ from kubernetes.client import V1Secret
 from kubernetes.client.rest import ApiException
 
 from simplekube.mixins import JinjaTemplateMixin
+from simplekube.exceptions import SimpleApiException
 
 
 class SimpleV1Secret(V1Secret, JinjaTemplateMixin):
@@ -46,28 +47,24 @@ class SimpleV1Secret(V1Secret, JinjaTemplateMixin):
 
     def create(self, pretty=False):
         try:
-            api_response = self.api.create_namespaced_secret(self.namespace, self.to_dict(), pretty=pretty)
-            print(api_response)
+            return self.api.create_namespaced_secret(self.namespace, self.to_dict(), pretty=pretty)
         except ApiException as e:
-            print("Exception when calling CoreV1Api->create_namespaced_config_map: %s\n" % e)
+            raise SimpleApiException(e)
 
     def delete(self, pretty=False, grace_period_seconds=0, propagation_policy='Foreground'):
         try:
-            api_response = self.api.delete_namespaced_secret(self.name, self.namespace, pretty=pretty, grace_period_seconds=grace_period_seconds, propagation_policy=propagation_policy)
-            print(api_response)
+            return self.api.delete_namespaced_secret(self.name, self.namespace, pretty=pretty, grace_period_seconds=grace_period_seconds, propagation_policy=propagation_policy)
         except ApiException as e:
-            print("Exception when calling CoreV1Api->delete_namespaced_config_map: %s\n" % e)
+            raise SimpleApiException(e)
 
     def patch(self, pretty=False):
         try:
-            api_response = self.api.patch_namespaced_secret(self.name, self.namespace, self.to_dict(), pretty=pretty)
-            print(api_response)
+            return self.api.patch_namespaced_secret(self.name, self.namespace, self.to_dict(), pretty=pretty)
         except ApiException as e:
-            print("Exception when calling CoreV1Api->patch_namespaced_config_map: %s\n" % e)
+            raise SimpleApiException(e)
 
     def read(self, pretty=False):
         try:
-            api_response = self.api.read_namespaced_secret(self.name, self.namespace, pretty=pretty)
-            print(api_response)
+            return self.api.read_namespaced_secret(self.name, self.namespace, pretty=pretty)
         except ApiException as e:
-            print("Exception when calling CoreV1Api->read_namespaced_config_map: %s\n" % e)
+            raise SimpleApiException(e)

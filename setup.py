@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="simplekube",
-    version="0.0.7",
+    version="0.0.8",
     author="marosmola",
     author_email="ssmolenm@gmail.com",
     description="Simplify kubernetes-client library",
