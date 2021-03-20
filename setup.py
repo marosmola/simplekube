@@ -15,7 +15,7 @@ setup(
     packages=find_packages(),
     package_data={'simplekube': ['templates/*.j2']},
     install_requires=[
-        "Jinja2==2.11.1",
+        "Jinja2==2.11.3",
         "kubernetes==11.0.0"
     ],
     classifiers=[
